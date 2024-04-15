@@ -12,12 +12,12 @@ const Sign = ({ navigation, route }) => {
   return (
 
     <View style={d.container}>
-                <View style={styles.header}>
+                <View style={{flex : 1}}>
                 <TouchableOpacity onPress={() => navigation.goBack()} >
-                    <AntDesign name="arrowleft" size={wp('8%')} color='#fff' style={{ marginLeft: wp('2%'), marginTop: hp('2.5%'), marginVertical : wp('6%'), margin :wp('90%')}} />
+                    <AntDesign name="arrowleft" size={wp('8%')} color='#000' style={{ position:'relative', marginLeft: wp('2%'), marginTop: hp('5%'),marginHorizontal : wp('80%') ,margin : wp('2%')}} />
                 </TouchableOpacity>
             </View>
-      <ScrollView style={{flex : 1}}>
+   
       <View style={d.titleContainer}>
         <Text style={d.title}>Organiser votre rendez-vous et votre traitement!</Text>
       </View>
@@ -43,7 +43,7 @@ const Sign = ({ navigation, route }) => {
           <Text style={d.caption}>Contact</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+   
 
     </View>
 
@@ -55,8 +55,9 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
   },
   header: {
-      backgroundColor: '#9925be',
-      justifyContent : 'flex-start'
+      
+      justifyContent : 'flex-start',
+  
   },
   scrollViewContent: {
       flexGrow: 1,

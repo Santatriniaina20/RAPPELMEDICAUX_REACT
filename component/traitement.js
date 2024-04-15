@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Platform, DatePickerAndroid} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Platform, DatePickerAndroid, Button} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { AsyncStorage } from '@react-native-async-storage/async-storage';
+import RappelMedicauxApp from "./Date";
 
 
 const Traitement = ({ navigation }) => {
@@ -21,21 +22,7 @@ const Traitement = ({ navigation }) => {
             alert('Une erreur s\'est produite lors de l\'enregistrement');
         }
     };
-    const DatePickerComponent = () =>{
-        const [chosenDate, setchosenDate]=useState(new Date());
-        const openDatePicker = async () => {
-            try {
-                const {action, year, month, day}= await DatePickerAndroid.open({
-                    date: chosenDate,
-                    mode : 'calendar',
-                });
-                if (action !== DatePickerAndroid.dismissedAction){
-                    const newDate = new Date(year, month, day);
-                    setchosenDate(newDate);
-                }
-            } catch ({code, message}) {console.warn('Cannot open Date picker', message);}
-        }
-    };
+
 
     return (
         <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
@@ -46,6 +33,7 @@ const Traitement = ({ navigation }) => {
             </View>
            
                 <Text style={styles.texte}>Enregistrer vos traitement</Text>
+                <ScrollView contentContainerStyle={{paddingHorizontal:30, paddingVertical:10}}>
                 <View style={styles.inputContainer}>
                     <Text style={styles.label}>Nom du pilule :</Text>
                     <TextInput
@@ -55,35 +43,39 @@ const Traitement = ({ navigation }) => {
                     />
                 </View>
 
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}> Sélectionnez une date :</Text>
-                    {Platform.OS === 'ios' ?(
+                {/* <View style={styles.inputContainer}> */}
+                    {/* <Text style={styles.label}> Sélectionnez une date :</Text> */}
+                    {/* {Platform.OS === 'ios' ?(
                         <DatePickerIOS 
                         date={chosenDate}
                         onDateChange={setchosenDate}
                         mode="date"/>
-                    ) : (<Button title='ouvrir le selecteur de date' onPress={openDatePicker}/>)}
-                    {/* <TextInput
+                    ) : (<Button title='ouvrir le selecteur de date' onPress={openDatePicker}/>)} */}
+                     {/* <TextInput
                         style={styles.input}
                         placeholder="Entrez la date"
                         onChangeText={text => setDate(text)}
-                    /> */}
+                    /> 
+                </View> */}
+                <View style={{flex:1, marginTop:hp('4%')}}>
+                <RappelMedicauxApp/>
                 </View>
 
-                <View style={styles.inputContainer}>
+                {/* <View style={styles.inputContainer}>
                     <Text style={styles.label}>Heure :</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Entrez l'heure"
                         onChangeText={text => setTime(text)}
                     />
-                </View>
+                </View> */}
 
                 <TouchableOpacity onPress={handleSaveAppointment} style={styles.button}>
                     <Text style={styles.buttonText}>Enregistrer</Text>
                 </TouchableOpacity>
+                </ScrollView>
            
-
+        <View style={{justifyContent:'flex-end'}}>
         <View style={footerStyle.footer}>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                 <AntDesign name="home" style={footerStyle.footerIcon}/>
@@ -95,9 +87,11 @@ const Traitement = ({ navigation }) => {
                 <AntDesign name="barschart" style={footerStyle.footerIcon}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Traitement')}>
-                <AntDesign name="adduser" style={footerStyle.footerIcon}/>
+                <AntDesign name="pluscircle" style={footerStyle.footerIcon}/>
             </TouchableOpacity>
         </View>
+        </View>
+
 
     </View>
     );
@@ -121,14 +115,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'green',
         textAlign: 'center',
-        marginVertical: hp('6%'),
+        marginVertical: hp('5%'),
     },
     inputContainer: {
-        marginBottom: hp('1.5%'),
+        marginBottom: hp('0.5%'),
+        margin:hp('2%'),
     },
     label: {
         fontSize: hp('2.5%'),
-        marginBottom: hp('3.5%'),
+        marginBottom: hp('2.5%'),
     },
     input: {
         borderWidth: 1,
